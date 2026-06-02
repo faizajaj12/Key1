@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>CYBER KEY VAULT | HACK THE SYSTEM</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            background: radial-gradient(circle at 20% 30%, #0a0f0f, #030505);
+            font-family: 'Courier New', 'Fira Code', 'Source Code Pro', monospace;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(0deg, 
+                rgba(0, 255, 0, 0.03) 0px, 
+                rgba(0, 255, 0, 0.03) 2px,
+                transparent 2px,
+                transparent 6px);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .cyber-container {
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(5px);
+            border: 2px solid #0f0;
+            border-radius: 32px;
+            box-shadow: 0 0 25px rgba(0, 255, 0, 0.3), inset 0 0 10px rgba(0,255,0,0.2);
+            width: 100%;
+            max-width: 600px;
+            padding: 25px 20px 35px;
+            transition: all 0.2s;
+            z-index: 2;
+            position: relative;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 30px;
+            border-bottom: 1px dashed #0f0;
+            padding-bottom: 18px;
+        }
+        .logo-area {
+            background: #000;
+            border-radius: 100%;
+            padding: 5px;
+            border: 2px solid #0f0;
+            box-shadow: 0 0 12px #0f0;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            background: #111;
+        }
+        .site-title {
+            color: #0f0;
+            text-shadow: 0 0 5px #0f0;
+            font-size: 1.7rem;
+            letter-spacing: 3px;
+            word-break: keep-all;
+        }
+        .site-title small {
+            font-size: 0.7rem;
+            display: block;
+            color: #8f8;
+            letter-spacing: 1px;
+        }
+
+        .key-panel {
+            background: #010a01;
+            border: 2px solid #2ecc2e;
+            border-radius: 24px;
+            padding: 20px 15px;
+            margin: 20px 0;
+            text-align: center;
+            box-shadow: inset 0 0 8px #0f0, 0 5px 15px rgba(0,0,0,0.5);
+            transition: 0.2s;
+        }
+        .glitch-text {
+            font-size: 1rem;
+            color: #5f5;
+            font-weight: bold;
+            background: #030;
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 30px;
+            letter-spacing: 1px;
+        }
+        .key-display {
+            margin: 20px 0 10px;
+        }
+        .credential-card {
+            background: #000c00;
+            padding: 20px 10px;
+            border-radius: 28px;
+            border-left: 8px solid #0f0;
+            border-right: 2px solid #0f0;
+            font-family: monospace;
+            font-weight: bold;
+            animation: flicker 3s infinite;
+        }
+        .username {
+            font-size: 1.9rem;
+            color: #0f0;
+            word-break: break-word;
+            text-shadow: 0 0 8px #0f0;
+            letter-spacing: 2px;
+        }
+        .password {
+            font-size: 1.6rem;
+            color: #ffcc66;
+            word-break: break-word;
+            margin-top: 12px;
+            border-top: 1px dashed #3a3;
+            padding-top: 12px;
+        }
+        .badge-time {
+            font-family: monospace;
+            background: #0a2a0a;
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 60px;
+            font-size: 0.8rem;
+            margin-top: 15px;
+            color: #afa;
+        }
+        .timer-txt {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #ffaa44;
+        }
+
+        .countdown-area {
+            background: #021102;
+            border-radius: 50px;
+            padding: 12px;
+            margin: 15px 0;
+            text-align: center;
+            border: 1px solid #2c6e2c;
+        }
+        .progress-ring {
+            font-size: 2rem;
+            font-weight: bold;
+            background: #000;
+            display: inline-block;
+            padding: 5px 18px;
+            border-radius: 60px;
+            color: #0f0;
+            font-family: monospace;
+            letter-spacing: 4px;
+        }
+
+        .limit-status {
+            background: #0a0f05;
+            border-radius: 18px;
+            padding: 8px 15px;
+            font-size: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 20px 0 12px;
+            color: #8bc34a;
+        }
+        .limit-left {
+            font-weight: bold;
+            color: #ffb347;
+        }
+
+        /* TOMBOL UTAMA DAPATKAN KEY */
+        .get-key-btn {
+            background: #000;
+            border: 3px solid #0f0;
+            color: #0f0;
+            font-weight: bold;
+            padding: 14px 20px;
+            border-radius: 60px;
+            cursor: pointer;
+            font-family: monospace;
+            font-size: 1.2rem;
+            transition: 0.2s;
+            width: 100%;
+            margin-top: 15px;
+            letter-spacing: 2px;
+            box-shadow: 0 0 8px #0f0;
+        }
+        .get-key-btn:hover:not(:disabled) {
+            background: #0f0;
+            color: #000;
+            box-shadow: 0 0 20px #0f0;
+            transform: scale(0.98);
+        }
+        .get-key-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            border-color: #666;
+            box-shadow: none;
+        }
+        .reset-btn {
+            background: #1a2a1a;
+            border: 1px solid #5a8;
+            color: #8f8;
+            font-weight: bold;
+            padding: 8px 18px;
+            border-radius: 60px;
+            cursor: pointer;
+            font-family: monospace;
+            font-size: 0.8rem;
+            transition: 0.2s;
+            width: 100%;
+            margin-top: 12px;
+        }
+        .reset-btn:hover {
+            background: #2a4a2a;
+            color: #0f0;
+        }
+        footer {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 0.7rem;
+            color: #3a6e3a;
+        }
+        @keyframes flicker {
+            0% { opacity: 0.95; text-shadow: 0 0 2px #0f0;}
+            50% { opacity: 1; text-shadow: 0 0 6px #0f0;}
+            100% { opacity: 0.95; text-shadow: 0 0 2px #0f0;}
+        }
+        .status-warning {
+            color: #ffaa44;
+        }
+    </style>
+</head>
+<body>
+<div class="cyber-container">
+    <div class="header">
+        <div class="logo-area">
+            <img class="logo" src="https://cdn.phototourl.com/free/2026-06-02-a39bd123-ba84-47ae-ac9b-c80a8ab25430.png" alt="cyber logo" onerror="this.src='https://via.placeholder.com/80?text=HACK'">
+        </div>
+        <div class="site-title">
+            ⚡ KEY VAULT ⚡
+            <small>// inject credential //</small>
+        </div>
+    </div>
+
+    <div class="key-panel">
+        <div class="glitch-text">>> CREDENTIAL INJECTION <<</div>
+        <div class="key-display" id="keyDisplayZone">
+            <div class="credential-card">
+                <div class="username" id="displayUsername">[---]</div>
+                <div class="password" id="displayPassword">[---]</div>
+            </div>
+        </div>
+        <div class="badge-time">
+            ⏱️ KEY ACTIVE : <span id="keyActiveTimer" class="timer-txt">0:00</span> / 2:00
+        </div>
+    </div>
+
+    <!-- area progress waktu (10 detik loading, 5 detik key muncul) -->
+    <div class="countdown-area">
+        <div>🕒 PROSES KEY CYCLE</div>
+        <div class="progress-ring" id="countdownTimer">-- s</div>
+        <div style="font-size:0.7rem; margin-top:5px;" id="phaseInfo">Tekan tombol untuk memulai</div>
+    </div>
+
+    <!-- TOMBOL UTAMA -->
+    <button class="get-key-btn" id="getKeyBtn">🔑 DAPATKAN KEY 🔑</button>
+
+    <div class="limit-status">
+        <span>🔐 DAILY QUOTA : <span id="dailyUsageInfo">0 / 120</span> detik</span>
+        <span>⚡ STATUS : <span id="keyStateLabel">MENUNGGU</span></span>
+    </div>
+
+    <button class="reset-btn" id="resetDayBtn">⟳ RESET SIMULASI HARI (test)</button>
+    <footer>// setiap key aktif 2 menit/hari // tombol memicu proses 10s → key 5s (acak) //</footer>
+</div>
+
+<script>
+    // ---------- DATA AKUN (USERNAME & PASSWORD) ----------
+    const CREDENTIALS = [
+        { username: "admin", password: "1122" },
+        { username: "user", password: "1100" },
+        { username: "faiz", password: "1212" },
+        { username: "free", password: "1111" },
+        { username: "VIP", password: "2222" }
+    ];
+
+    // ----- STATE GLOBAL -----
+    let dailyUsedSeconds = 0;           // detik terpakai hari ini (max 120)
+    let isKeyActive = false;            // apakah sedang key aktif (timer penggunaan jalan)
+    let activeIntervalId = null;        // interval pengurangan daily quota
+    
+    // state untuk proses tombol & siklus
+    let processActive = false;           // apakah sedang dalam proses (10s loading atau 5s key muncul)
+    let currentPhase = "idle";           // idle, loading_10s, showing_5s
+    let processTimeoutId = null;
+    let countdownInterval = null;
+    
+    // DOM elements
+    const displayUsernameSpan = document.getElementById("displayUsername");
+    const displayPasswordSpan = document.getElementById("displayPassword");
+    const keyActiveTimerSpan = document.getElementById("keyActiveTimer");
+    const dailyUsageInfoSpan = document.getElementById("dailyUsageInfo");
+    const keyStateLabelSpan = document.getElementById("keyStateLabel");
+    const countdownTimerSpan = document.getElementById("countdownTimer");
+    const phaseInfoSpan = document.getElementById("phaseInfo");
+    const getKeyBtn = document.getElementById("getKeyBtn");
+    const resetDayBtn = document.getElementById("resetDayBtn");
+
+    // Helper format menit:detik
+    function formatTime(seconds) {
+        let mins = Math.floor(seconds / 60);
+        let secs = seconds % 60;
+        return `${mins}:${secs < 10 ? '0'+secs : secs}`;
+    }
+
+    // update tampilan limit & timer sisa kuota
+    function updateLimitUI() {
+        dailyUsageInfoSpan.innerText = `${dailyUsedSeconds} / 120`;
+        let remaining = Math.max(0, 120 - dailyUsedSeconds);
+        keyActiveTimerSpan.innerText = formatTime(remaining);
+        if(dailyUsedSeconds >= 120) {
+            keyStateLabelSpan.innerText = "QUOTA HABIS";
+            keyStateLabelSpan.style.color = "#ff6666";
+        } else {
+            keyStateLabelSpan.style.color = "#afa";
+            if(isKeyActive && currentPhase === "showing_5s") keyStateLabelSpan.innerText = "KEY ACTIVE 🔓";
+            else if(currentPhase === "loading_10s") keyStateLabelSpan.innerText = "LOADING...";
+            else keyStateLabelSpan.innerText = "SIAP";
+        }
+    }
+
+    // Hentikan timer penggunaan (konsumsi quota)
+    function stopUsageTimer() {
+        if(activeIntervalId) {
+            clearInterval(activeIntervalId);
+            activeIntervalId = null;
+        }
+        isKeyActive = false;
+        updateLimitUI();
+    }
+
+    // Mulai timer konsumsi quota (per detik) selama key aktif
+    function startUsageTimer() {
+        if(activeIntervalId) stopUsageTimer();
+        if(dailyUsedSeconds >= 120) {
+            isKeyActive = false;
+            updateLimitUI();
+            return false;
+        }
+        isKeyActive = true;
+        activeIntervalId = setInterval(() => {
+            if(isKeyActive && dailyUsedSeconds < 120 && currentPhase === "showing_5s") {
+                dailyUsedSeconds++;
+                updateLimitUI();
+                if(dailyUsedSeconds >= 120) {
+                    // quota habis di tengah pemakaian, paksa hentikan proses & bersihkan tampilan
+                    forceStopProcessBecauseQuota();
+                }
+            } else if(dailyUsedSeconds >= 120) {
+                forceStopProcessBecauseQuota();
+            }
+        }, 1000);
+        return true;
+    }
+
+    // Paksa hentikan semua proses karena quota habis
+    function forceStopProcessBecauseQuota() {
+        if(processTimeoutId) clearTimeout(processTimeoutId);
+        if(countdownInterval) clearInterval(countdownInterval);
+        processActive = false;
+        currentPhase = "idle";
+        stopUsageTimer();
+        displayUsernameSpan.innerText = "[ QUOTA EXPIRED ]";
+        displayPasswordSpan.innerText = "HARI INI HABIS";
+        countdownTimerSpan.innerText = "0s";
+        phaseInfoSpan.innerText = "⚠️ Kuota 2 menit habis. Reset besok atau klik reset.";
+        getKeyBtn.disabled = false;
+        keyStateLabelSpan.innerText = "QUOTA HABIS";
+        keyStateLabelSpan.style.color = "#ff6666";
+    }
+
+    // Ambil kredensial secara acak
+    function getRandomCredential() {
+        const randomIndex = Math.floor(Math.random() * CREDENTIALS.length);
+        return CREDENTIALS[randomIndex];
+    }
+
+    // Tampilkan key di tengah panel (username & password acak)
+    function updateKeyDisplayRandom() {
+        if(dailyUsedSeconds >= 120) {
+            forceStopProcessBecauseQuota();
+            return;
+        }
+        const cred = getRandomCredential();
+        displayUsernameSpan.innerText = cred.username;
+        displayPasswordSpan.innerText = cred.password;
+    }
+
+    // Fase SHOW: key muncul selama 5 detik (aktif dan mengurangi quota)
+    function enterShowPhase() {
+        if(!processActive) return;
+        if(dailyUsedSeconds >= 120) {
+            forceStopProcessBecauseQuota();
+            return;
+        }
+        currentPhase = "showing_5s";
+        phaseInfoSpan.innerText = "🔓 KEY AKTIF (5 DETIK) - quota berkurang";
+        // tampilkan username & password acak
+        updateKeyDisplayRandom();
+        // mulai timer penggunaan (setiap detik kurangi jatah)
+        startUsageTimer();
+        
+        // countdown 5 detik
+        let remaining = 5;
+        if(countdownInterval) clearInterval(countdownInterval);
+        countdownTimerSpan.innerText = `${remaining}s 🔓`;
+        countdownInterval = setInterval(() => {
+            if(!processActive || currentPhase !== "showing_5s") {
+                if(countdownInterval) clearInterval(countdownInterval);
+                return;
+            }
+            if(remaining > 1) {
+                remaining--;
+                countdownTimerSpan.innerText = `${remaining}s 🔓`;
+            } else {
+                clearInterval(countdownInterval);
+                countdownTimerSpan.innerText = "0s";
+                // setelah 5 detik, selesaikan proses, key hilang, selesai
+                finishProcess();
+            }
+        }, 1000);
+        
+        // timeout pengaman 5 detik
+        if(processTimeoutId) clearTimeout(processTimeoutId);
+        processTimeoutId = setTimeout(() => {
+            if(processActive && currentPhase === "showing_5s") {
+                if(countdownInterval) clearInterval(countdownInterval);
+                finishProcess();
+            }
+        }, 5000);
+    }
+    
+    // Selesai seluruh proses (setelah key tampil 5 detik) -> key disembunyikan, tombol aktif kembali
+    function finishProcess() {
+        if(!processActive) return;
+        // bersihkan semua timer
+        if(processTimeoutId) clearTimeout(processTimeoutId);
+        if(countdownInterval) clearInterval(countdownInterval);
+        // matikan pemakaian quota (karena key tidak aktif lagi)
+        stopUsageTimer();
+        // sembunyikan key (tampilkan placeholder)
+        if(dailyUsedSeconds < 120) {
+            displayUsernameSpan.innerText = "[ LOCKED ]";
+            displayPasswordSpan.innerText = "Tekan tombol untuk key baru";
+        } else {
+            displayUsernameSpan.innerText = "[ HABIS ]";
+            displayPasswordSpan.innerText = "Kuota 2 menit terpakai";
+        }
+        currentPhase = "idle";
+        processActive = false;
+        countdownTimerSpan.innerText = "--";
+        phaseInfoSpan.innerText = "Selesai. Tekan tombol untuk proses baru.";
+        getKeyBtn.disabled = false;
+        updateLimitUI();
+        keyStateLabelSpan.innerText = dailyUsedSeconds >= 120 ? "QUOTA HABIS" : "SIAP";
+    }
+    
+    // Fase LOADING selama 10 detik (menunggu, tidak ada key, tidak mengurangi quota)
+    function startLoadingPhase() {
+        if(!processActive) return;
+        if(dailyUsedSeconds >= 120) {
+            forceStopProcessBecauseQuota();
+            return;
+        }
+        currentPhase = "loading_10s";
+        phaseInfoSpan.innerText = "⏳ MENGINJEKSI KEY (10 detik)";
+        displayUsernameSpan.innerText = "[ ENCRYPTING ]";
+        displayPasswordSpan.innerText = "TUNGGU SEBENTAR...";
+        stopUsageTimer();  // tidak mengurangi quota saat loading
+        updateLimitUI();
+        
+        let remaining = 10;
+        if(countdownInterval) clearInterval(countdownInterval);
+        countdownTimerSpan.innerText = `${remaining}s ⏳`;
+        countdownInterval = setInterval(() => {
+            if(!processActive || currentPhase !== "loading_10s") {
+                if(countdownInterval) clearInterval(countdownInterval);
+                return;
+            }
+            if(remaining > 1) {
+                remaining--;
+                countdownTimerSpan.innerText = `${remaining}s ⏳`;
+            } else {
+                clearInterval(countdownInterval);
+                countdownTimerSpan.innerText = "0s";
+                // setelah loading 10 detik, lanjut ke fase show (key muncul 5 detik)
+                if(processActive && currentPhase === "loading_10s") {
+                    enterShowPhase();
+                }
+            }
+        }, 1000);
+        
+        if(processTimeoutId) clearTimeout(processTimeoutId);
+        processTimeoutId = setTimeout(() => {
+            if(processActive && currentPhase === "loading_10s") {
+                if(countdownInterval) clearInterval(countdownInterval);
+                enterShowPhase();
+            }
+        }, 10000);
+    }
+    
+    // Fungsi utama: mulai proses mendapatkan key (dipanggil dari tombol)
+    function initiateGetKey() {
+        // Cek apakah bisa memulai proses
+        if(processActive) {
+            phaseInfoSpan.innerText = "⚠️ Proses sedang berjalan, tunggu selesai!";
+            return;
+        }
+        if(dailyUsedSeconds >= 120) {
+            phaseInfoSpan.innerText = "❌ Kuota hari ini habis (2 menit). Reset atau tung esok.";
+            return;
+        }
+        // mulai proses baru
+        processActive = true;
+        getKeyBtn.disabled = true;  // tombol nonaktif selama proses berlangsung
+        startLoadingPhase();        // 10 detik loading, lalu otomatis 5 detik key muncul
+        updateLimitUI();
+    }
+    
+    // Reset seluruh kuota harian (simulasi)
+    function resetDaily() {
+        // hentikan proses apapun yang sedang berjalan
+        if(processActive) {
+            if(processTimeoutId) clearTimeout(processTimeoutId);
+            if(countdownInterval) clearInterval(countdownInterval);
+            processActive = false;
+            currentPhase = "idle";
+        }
+        stopUsageTimer();
+        dailyUsedSeconds = 0;
+        updateLimitUI();
+        // reset tampilan
+        displayUsernameSpan.innerText = "[ RESET ]";
+        displayPasswordSpan.innerText = "Sistem siap. Tekan tombol.";
+        countdownTimerSpan.innerText = "--";
+        phaseInfoSpan.innerText = "Kuota direset. Tekan tombol 'Dapatkan Key'";
+        getKeyBtn.disabled = false;
+        keyStateLabelSpan.innerText = "SIAP";
+        keyStateLabelSpan.style.color = "#afa";
+    }
+    
+    // event listener
+    getKeyBtn.addEventListener("click", initiateGetKey);
+    resetDayBtn.addEventListener("click", () => {
+        resetDaily();
+    });
+    
+    // inisialisasi awal
+    function init() {
+        dailyUsedSeconds = 0;
+        updateLimitUI();
+        displayUsernameSpan.innerText = "[---]";
+        displayPasswordSpan.innerText = "[---]";
+        countdownTimerSpan.innerText = "--";
+        phaseInfoSpan.innerText = "Tekan tombol untuk memproses key acak";
+        getKeyBtn.disabled = false;
+        processActive = false;
+        currentPhase = "idle";
+    }
+    
+    init();
+</script>
+</body>
+</html>
